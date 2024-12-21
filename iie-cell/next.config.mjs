@@ -1,6 +1,12 @@
 import {withSentryConfig} from '@sentry/nextjs';
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+
+
+const nextConfig = {
+    images: {
+      domains: ['via.placeholder.com'], // Allow external image domains
+    },
+  };
 
 export default withSentryConfig(nextConfig, {
 // For all available options, see:

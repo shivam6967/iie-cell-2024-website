@@ -1,152 +1,140 @@
 import React from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { Roboto } from 'next/font/google'
+import { Card, CardBody, CardHeader, Image } from "@nextui-org/react";
+import { TextGenerateEffect } from "./ui/TextGenerateEffect";
 
-import { CanvasRevealEffect } from "./ui/CanvasRevealEffect";
+const roboto = Roboto({
+  weight: '400',
+  subsets: ['latin'],
+})
 
-const Approach = () => {
+interface TeamMember {
+  name: string;
+  role: string;
+  image: string;
+  description: string;
+}
+
+interface TeamCardProps {
+  member: TeamMember;
+}
+
+const TeamCard: React.FC<TeamCardProps> = ({ member }) => {
   return (
-    <section className="w-full py-20">
-      <h1 className="heading">
-        Our Team <span className="text-purple">The Pillars of Innovation</span>
-      </h1>
-      {/* remove bg-white dark:bg-black */}
+    <Card className="py-4 w-72 bg-[#04071D] text-white rounded-xl border-[#18181B] border-2">
+      <CardHeader className="pb-2 pt-4 px-4 flex-col items-start">
+          <p className="text-tiny uppercase font-medium text-[#75747D] ">
+            {member.role}
+          </p>
+        <h4 className="font-bold text-lg">{member.name}</h4>
+        <div className="flex text-[#75747D]">
+            <i className="ri-instagram-line"></i>
+            <i className="ri-linkedin-fill"></i>
+            <i className="ri-mail-open-fill"></i>
+        </div>
+      </CardHeader>
+      <CardBody className="py-2 px-4 flex justify-center ">
+        <img
+          className="object-cover rounded-lg h-48 w-60 "
+          src={member.image}
+          width={220}
+          height={220}
+        />
+      </CardBody>
+    </Card>
+  );
+};
+
+const Team: React.FC = () => {
+  const teamMembers: TeamMember[] = [
+    {
+      name: "Shivam Mathapati",
+      role: "President",
+      image:
+        "https://i.pinimg.com/736x/74/9e/57/749e57988e53c05250cfc4a325d2e0d8.jpg",
+      description:
+        "Leading innovation and entrepreneurship initiatives with 15+ years of experience.",
+    },
+    {
+      name: "Shravan Jare",
+      role: "President",
+      image:
+        "https://i.pinimg.com/736x/8f/0d/c8/8f0dc836ce619ffdb30798adc8ce4506.jpg",
+      description:
+        "Leading innovation and entrepreneurship initiatives with 15+ years of experience.",
+    },
+    {
+      name: "Yashwant Mule",
+      role: "President",
+      image:
+        "https://i.pinimg.com/736x/45/04/a7/4504a7ba5e1ea251624a70bbc42589c4.jpg",
+      description:
+        "Leading innovation and entrepreneurship initiatives with 15+ years of experience.",
+    },
+    {
+      name: "Shivam Mathapati",
+      role: "President",
+      image:
+        "https://i.pinimg.com/736x/1f/ad/12/1fad1272a6e5309cd249bc868ebbb39f.jpg",
+      description:
+        "Leading innovation and entrepreneurship initiatives with 15+ years of experience.",
+    },
+    {
+      name: "Shivam Mathapati",
+      role: "President",
+      image:
+        "https://i.pinimg.com/736x/f5/49/55/f549558887c20ba0a03d9a328353af57.jpg",
+      description:
+        "Leading innovation and entrepreneurship initiatives with 15+ years of experience.",
+    },
+    {
+      name: "Shivam Mathapati",
+      role: "President",
+      image:
+        "https://i.pinimg.com/736x/86/9f/0f/869f0f26c887b4faee29e1dab378b8f0.jpg",
+      description:
+        "Leading innovation and entrepreneurship initiatives with 15+ years of experience.",
+    },
+    {
+      name: "Shivam Mathapati",
+      role: "President",
+      image:
+        "https://i.pinimg.com/736x/b6/dd/fd/b6ddfdf96c15baf422b1fa4c64518a0e.jpg",
+      description:
+        "Leading innovation and entrepreneurship initiatives with 15+ years of experience.",
+    },
+    {
+      name: "Shivam Mathapati",
+      role: "President",
+      image:
+        "https://i.pinimg.com/736x/53/f7/c9/53f7c9f083a09284cf34654dc7492e92.jpg",
+      description:
+        "Leading innovation and entrepreneurship initiatives with 15+ years of experience.",
+    },
     
+  ];
+
+  return (
+    <section className="relative min-h-screen w-full py-20 overflow-hidden">
+      <div className="relative z-10 container mx-auto px-4">
+        <div className="text-center mb-16">
+          <p className="uppercase tracking-widest text-xs text-blue-100 mb-4">
+            Our Team
+          </p>
+          <TextGenerateEffect
+            words="Meet the Innovators Behind IIE CELL"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
+          {teamMembers.map((member, index) => (
+            <TeamCard key={index} member={member} />
+          ))}
+        </div>
+      </div>
     </section>
   );
 };
 
-export default Approach;
-
-const Card = ({
-  title,
-  icon,
-  children,
-  // add this one for the desc
-  des,
-}: {
-  title: string;
-  icon: React.ReactNode;
-  children?: React.ReactNode;
-  des: string;
-}) => {
-  const [hovered, setHovered] = React.useState(false);
-  return (
-    <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      // change h-[30rem] to h-[35rem], add rounded-3xl
-      className="border border-black/[0.2] group/canvas-card flex items-center justify-center
-       dark:border-white/[0.2]  max-w-sm w-full mx-auto p-4 relative lg:h-[35rem] rounded-3xl "
-      style={{
-        //   add these two
-        //   you can generate the color from here https://cssgradient.io/
-        background: "rgb(4,7,29)",
-        backgroundColor:
-          "linear-gradient(90deg, rgba(4,7,29,1) 0%, rgba(12,14,35,1) 100%)",
-      }}
-    >
-      {/* change to h-10 w-10 , add opacity-30  */}
-      <Icon className="absolute h-10 w-10 -top-3 -left-3 dark:text-white text-black opacity-30" />
-      <Icon className="absolute h-10 w-10 -bottom-3 -left-3 dark:text-white text-black opacity-30" />
-      <Icon className="absolute h-10 w-10 -top-3 -right-3 dark:text-white text-black opacity-30" />
-      <Icon className="absolute h-10 w-10 -bottom-3 -right-3 dark:text-white text-black opacity-30" />
-
-      <AnimatePresence>
-        {hovered && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="h-full w-full absolute inset-0"
-          >
-            {children}
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <div className="relative z-20 px-10">
-        <div
-          // add this for making it center
-          // absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]
-          className="text-center group-hover/canvas-card:-translate-y-4 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] 
-        group-hover/canvas-card:opacity-0 transition duration-200 min-w-40 mx-auto flex items-center justify-center"
-        >
-          {icon}
-        </div>
-        <h2
-          // change text-3xl, add text-center
-          className="dark:text-white text-center text-3xl opacity-0 group-hover/canvas-card:opacity-100
-         relative z-10 text-black mt-4  font-bold group-hover/canvas-card:text-white 
-         group-hover/canvas-card:-translate-y-2 transition duration-200"
-        >
-          {title}
-        </h2>
-        {/* add this one for the description */}
-        <p
-          className="text-sm opacity-0 group-hover/canvas-card:opacity-100
-         relative z-10 mt-4 group-hover/canvas-card:text-white text-center
-         group-hover/canvas-card:-translate-y-2 transition duration-200"
-          style={{ color: "#E4ECFF" }}
-        >
-          {des}
-        </p>
-      </div>
-    </div>
-  );
-};
-// add order prop for the Phase number change
-const AceternityIcon = ({ order }: { order: string }) => {
-  return (
-    <div>
-      {/* this btn is from https://ui.aceternity.com/components/tailwindcss-buttons border magic */}
-      {/* change rounded-lg, text-purple px-5 py-2 */}
-      {/* remove focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 cuz we don't need to focus */}
-      {/* remove text-sm font-medium h-12 , add font-bold text-2xl */}
-      <button className="relative inline-flex overflow-hidden rounded-full p-[1px] ">
-        <span
-          className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite]
-         bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]"
-        />
-        <span
-          className="inline-flex h-full w-full cursor-pointer items-center 
-        justify-center rounded-full bg-slate-950 px-5 py-2 text-purple backdrop-blur-3xl font-bold text-2xl"
-        >
-          {order}
-        </span>
-      </button>
-    </div>
-    // remove the svg and add the button
-    // <svg
-    //   width="66"
-    //   height="65"
-    //   viewBox="0 0 66 65"
-    //   fill="none"
-    //   xmlns="http://www.w3.org/2000/svg"
-    //   className="h-10 w-10 text-black dark:text-white group-hover/canvas-card:text-white "
-    // >
-    //   <path
-    //     d="M8 8.05571C8 8.05571 54.9009 18.1782 57.8687 30.062C60.8365 41.9458 9.05432 57.4696 9.05432 57.4696"
-    //     stroke="currentColor"
-    //     strokeWidth="15"
-    //     strokeMiterlimit="3.86874"
-    //     strokeLinecap="round"
-    //     style={{ mixBlendMode: "darken" }}
-    //   />
-    // </svg>
-  );
-};
-
-export const Icon = ({ className, ...rest }: any) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth="1.5"
-      stroke="currentColor"
-      className={className}
-      {...rest}
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
-    </svg>
-  );
-};
+export default Team;

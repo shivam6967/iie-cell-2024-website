@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Roboto, Poppins } from "next/font/google";
 
 import "./globals.css";
 import { ThemeProvider } from "./provider";
@@ -21,6 +21,11 @@ export default function RootLayout({
       <head>
         {/* Favicon */}
         <link rel="icon" href="" sizes="any" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+            rel="stylesheet"
+        />
+        
       </head>
       <body className={inter.className}>
         <ThemeProvider
